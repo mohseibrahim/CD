@@ -1,0 +1,70 @@
+Skip to content
+Search or jump to…
+Pull requests
+Issues
+Marketplace
+Explore
+ 
+@mohseibrahim 
+udacity
+/
+nd9991-c3-hello-world-exercise-solution
+Public
+Code
+Issues
+1
+Pull requests
+Actions
+Projects
+Wiki
+Security
+Insights
+nd9991-c3-hello-world-exercise-solution/bucket.yml
+@SudKul
+SudKul Working solution
+Latest commit c768afa on Sep 1, 2021
+ History
+ 1 contributor
+ 26 lines (25 sloc)  690 Bytes
+
+Parameters:
+  # New Bucket name
+  MyBucketName:
+    Description: Existing Bucket name
+    Type: String
+
+Resources:
+  WebsiteBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub "${MyBucketName}"
+      AccessControl: PublicRead
+      WebsiteConfiguration:
+        IndexDocument: index.html
+        ErrorDocument: error.html
+  WebsiteBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref 'WebsiteBucket'
+      PolicyDocument:
+        Statement:
+        - Sid: PublicReadForGetBucketObjects
+          Effect: Allow
+          Principal: '*'
+          Action: s3:GetObject
+          Resource: !Join ['', ['arn:aws:s3:::', !Ref 'WebsiteBucket', /*]]
+Footer
+© 2022 GitHub, Inc.
+Footer navigation
+Terms
+Privacy
+Security
+Status
+Docs
+Contact GitHub
+Pricing
+API
+Training
+Blog
+About
+You have no unread notifications
