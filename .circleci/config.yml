@@ -19,4 +19,4 @@ workflows:
   myWorkflow:
     jobs:
       - myjob1
-      - myjob2
+      - myjob
