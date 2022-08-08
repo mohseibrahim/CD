@@ -39,8 +39,8 @@ jobs:
           name: Create Cloudformation Stack
           command: |
             yum install -y tar gzip
-            touch inventory.txt
-            echo "[web]" > inventory.txt
+            touch ~/inventory.txt
+            echo "[web]" > ~/inventory.txt
             cat ~/inventory.txt
             aws ec2 describe-instances --query 'Reservations[*].Instances[*].[PublicIpAddress]' \
               --output text >> ~/inventory.txt 
