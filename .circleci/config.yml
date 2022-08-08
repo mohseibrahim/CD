@@ -49,7 +49,7 @@ jobs:
           command: |
             yum install -y tar gzip
       - persist_to_workspace:
-            root: ~/
+            root: .
             paths: 
               - inventory.txt  
 
