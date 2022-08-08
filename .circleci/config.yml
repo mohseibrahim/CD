@@ -39,13 +39,9 @@ jobs:
           name: Create Cloudformation Stack
           command: |
             yum install -y tar gzip
-            aws cloudformation deploy \
-              --template-file template.yml \
-              --stack-name myStack-${CIRCLE_WORKFLOW_ID:0:5} \
-              --region us-east-1
             aws ec2 describe-instances --query 'Reservations[*].Instances[*].[PublicIpAddress]' \
               --output text >> ~/output.txt 
-            cp ~/output.txt inventory.txt
+            cp ~/output.txt ~/inventory.txt
      
 
       # Fail the job intentionally to simulate an error.
