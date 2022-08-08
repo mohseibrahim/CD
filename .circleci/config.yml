@@ -42,10 +42,30 @@ jobs:
               --template-file template.yml \
               --stack-name myStack-${CIRCLE_WORKFLOW_ID:0:5} \
               --region us-east-1
+            aws ec2 describe-instances --filters "Name=tag-value,Values=RemoteControlAnsible" --query 'Reservations[*].Instances[*].[PublicIpAddress]' --output
+            text >> inventory.txt
       # Fail the job intentionally to simulate an error.
       # Uncomment the line below if you want to fail the current step
       # - run: return 1
       - destroy_environment
+  
+    # Exercise: Config and Deployment
+  configure_infrastructure: 
+    docker:
+      - image: python:3.7-alpine3.11 
+    steps:
+      - checkout
+      - add_ssh_keys:
+              # You can get this ID in the section where you registered the SSH Key
+              fingerprints: ["87:e8:25:2e:80:5a:59:1e:76:3f:1c:5d:bf:4b:25:e2"] 
+      - run:
+          name: Install Ansible
+          command: |
+            apk add --update ansible
+      - run:
+          name: Run Playbook and Configure server
+          command: |
+            ansible-playbook -i inventory.txt main.yml
 
 workflows:
   # Name the workflow "welcome"
@@ -54,3 +74,7 @@ workflows:
     jobs:
       # - welcome/run
       - create_infrastructure
+      - configure_infrastructure:
+         requires: 
+          - create_infrastructure
+    
