@@ -59,7 +59,7 @@ jobs:
     # Exercise: Config and Deployment
   configure_infrastructure: 
     docker:
-      - image: python:3.11-rc-bullseye 
+      - image: python:3.10.6-alpine3.16 
     steps:
       - checkout
       - add_ssh_keys:
