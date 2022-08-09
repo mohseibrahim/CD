@@ -1,8 +1,4 @@
 ---
-
-- hosts: all
-  gather_facts: no
-    
 - name: "update apt packages."
   become: true
   apt:
