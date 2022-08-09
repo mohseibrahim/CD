@@ -2,13 +2,6 @@
 
 - hosts: all
   gather_facts: no
-
-
-- name: Install Python if not already present.
-  raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
-  changed_when: False
-
-- name: Gather facts after Python is definitely present.
     
 - name: "update apt packages."
   become: true
